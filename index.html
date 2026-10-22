@@ -120,6 +120,13 @@
   .works h2{color:var(--cocoa)}
   .wlist{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
   .w{background:#fff;border:3px solid var(--cocoa);border-radius:22px;padding:24px 26px;box-shadow:0 5px 0 var(--cocoa)}
+  .w .vid{position:relative;display:block;margin:-6px -8px 16px;border-radius:14px;overflow:hidden;border:3px solid var(--cocoa)}
+  .w .vid img{width:100%;aspect-ratio:16/9;object-fit:cover}
+  .w .vid span{position:absolute;left:12px;bottom:12px;background:var(--rose);color:#fff;font-weight:800;font-size:15px;padding:6px 14px;border-radius:999px;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+  .w .vid:hover span{background:var(--violet)}
+  .w .shots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:-6px -8px 16px}
+  .w .shots img,.w .one{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:3px solid var(--cocoa)}
+  .w .one{margin:-6px -8px 16px;width:calc(100% + 16px)}
   .w h3{font-size:24px;color:var(--cocoa);margin-bottom:4px}
   .w .meta{font-size:14px;font-weight:600;color:var(--violet);margin-bottom:12px}
   .w p{font-size:17px}
@@ -334,28 +341,39 @@
   <p class="lead">다 만들고 다시 해 보면서, 아쉬운 점도 같이 적었어요.</p>
   <div class="wlist">
     <div class="w">
+      <a class="vid" href="https://youtu.be/Qg6zDC7dqIk" target="_blank" rel="noopener"><img src="img/w_echo.jpg" alt="EchoBreaker 플레이 화면: 방 세 개와 경비병, 화면 아래 소리 값" loading="lazy"><span>▶ 플레이 영상</span></a>
       <h3>EchoBreaker</h3>
       <div class="meta">마이크로 하는 잠입 게임 · DirectX 11 · 2026.06</div>
       <p>낮게 "음—" 하고 울리면 문이 열리고, 크게 말하면 경비병이 쫓아와요. 처음엔 소리가 크면 열리게 했더니 에어컨 소리에도 열려서, 낮은 소리가 얼마나 섞였는지로 바꿨어요. 제 목소리를 재 보고 판정 대역을 70~190Hz로 좁혔어요.</p>
       <p class="back"><b>다음엔</b> 음악 박자에 맞춰 말을 넣는 리듬 요소를 붙여 보고 싶어요. · <a href="https://github.com/dnguswp12345-spec/EchoBreaker">GitHub</a></p>
     </div>
     <div class="w">
+      <div class="shots"><img src="img/w_catloop.jpg" alt="CatLoopDefense 타이틀 화면" loading="lazy"><img src="img/w_catloop2.jpg" alt="CatLoopDefense 전투 장면" loading="lazy"></div>
       <h3>CatLoopDefense</h3>
       <div class="meta">4인 협동 타워디펜스 · 언리얼 5 · 2026.07~08</div>
       <p>50줄짜리 표에 "몇 웨이브부터, 몇 웨이브마다, 얼마씩 세지는지"를 넣어 200웨이브를 만들었어요. 사람이 늘면 적도 늘고, 한꺼번에 나오는 적 수엔 상한을 뒀어요.</p>
       <p class="back"><b>아쉬운 점</b> 길이만 늘고 재미는 약했어요. 다시 만든다면 웨이브 사이에 증강 3개 중 하나를 고르고, 유닛을 5개 후보 중에서 뽑게 할 거예요.</p>
     </div>
     <div class="w">
-      <h3>ProjectPG</h3>
-      <div class="meta">3인 팀 · 생존 슈터 · 언리얼 5 · 2026.07~10</div>
-      <p>팀이 모은 오브젝트 152개를 9가지 틀과 표 한 장으로 정리했어요. 맵을 세 구역으로 나눠 약한 무리, 센 몬스터, 보스를 따로 두었어요.</p>
-      <p class="back">맵 생성·캐릭터·인벤토리는 팀원이 맡았어요.</p>
-    </div>
-    <div class="w">
+      <div class="shots"><img src="img/w_rhythm.jpg" alt="DirectX 11 리듬 게임 화면" loading="lazy"><img src="img/w_vn.jpg" alt="DirectX 11 노래방·비주얼노벨 화면" loading="lazy"></div>
       <h3>DirectX 11 게임 3종</h3>
       <div class="meta">리듬 · 비주얼노벨 · 노래방 · 2026.05~06</div>
       <p>대사, 선택지, 레벨 진행을 데이터로 빼서 같은 엔진으로 장르를 바꿔 봤어요.</p>
       <p class="back"><b>아쉬운 점</b> 리듬 게임은 원이 바깥으로 퍼지게 하고, 숫자 패드 1~9를 화면 9칸에 맞추면 더 또렷했을 것 같아요.</p>
+    </div>
+    <div class="w">
+      <a class="vid" href="https://youtu.be/pjb24k4RByQ" target="_blank" rel="noopener"><img src="img/w_daw.jpg" alt="AION2 트레일러 리스코어 작업 중인 믹싱 화면" loading="lazy"><span>▶ 리스코어 영상</span></a>
+      <h3>AION2 트레일러 리스코어</h3>
+      <div class="meta">게임 오디오 · 지스타 2025 트레일러 · 음악·믹스</div>
+      <p>트레일러 장면마다 소리의 세기와 화음을 살펴 음악을 새로 붙였어요. 초기 스케치는 AI(Reaper MCP)로 빠르게 잡고, 가상악기 배치와 믹싱·마스터링(48kHz/24bit)은 직접 마감했어요.</p>
+      <p class="back">원본과 나란히 놓고 분석기로 싱크와 밸런스를 다시 맞췄어요.</p>
+    </div>
+    <div class="w">
+      <img class="one" src="img/w_pg.jpg" alt="ProjectPG 맵 전경" loading="lazy">
+      <h3>ProjectPG</h3>
+      <div class="meta">3인 팀 · 생존 슈터 · 언리얼 5 · 2026.07~10</div>
+      <p>팀이 모은 오브젝트 152개를 9가지 틀과 표 한 장으로 정리했어요. 맵을 세 구역으로 나눠 약한 무리, 센 몬스터, 보스를 따로 두었어요.</p>
+      <p class="back">맵 생성·캐릭터·인벤토리는 팀원이 맡았어요.</p>
     </div>
   </div>
 </div></section>
