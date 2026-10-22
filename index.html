@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>통통 튀는 특이한 녀석들 · 우현제</title>
+<meta name="description" content="밤톨들이 같이 오르고, 쫓고, 떨어지는 온라인 게임 「통통 튀는 특이한 녀석들」과 만든 사람 우현제(외토리)의 포트폴리오">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --plum:#4b2f7f; --violet:#6a4aa5; --rose:#e07a8f; --peach:#f7b267;
+    --mint:#79e0c4; --mint-d:#2f9c82; --cocoa:#5a3424;
+    --cream:#fff8ef; --paper:#ffffff; --ink:#2e2433; --muted:#6e6275; --line:#eadfd2;
+    --sunset:linear-gradient(180deg,#5b3f9e 0%,#a35a9e 45%,#e07a8f 72%,#f7b267 100%);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;line-height:1.75;font-size:17px;word-break:keep-all}
+  img,video{max-width:100%;display:block}
+  a{color:var(--violet)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .jua{font-family:Jua,Pretendard,sans-serif;font-weight:400}
+
+  /* 위 메뉴: 영상 위에선 투명, 내려가면 흰 띠 */
+  nav{position:fixed;inset:0 0 auto 0;z-index:20;transition:background .3s,box-shadow .3s}
+  nav.solid{background:rgba(255,248,239,.95);backdrop-filter:blur(6px);box-shadow:0 1px 0 var(--line)}
+  nav .wrap{display:flex;gap:22px;align-items:center;height:64px}
+  nav .home{margin-right:auto;display:flex;align-items:center;gap:8px;text-decoration:none}
+  nav .home img{height:30px;width:auto}
+  nav a.m{font-family:Jua,sans-serif;text-decoration:none;color:#fff;font-size:17px;white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+  nav.solid a.m{color:var(--cocoa);text-shadow:none}
+  nav a.m:hover{color:var(--peach)}
+
+  /* 첫 화면 */
+  .hero{position:relative;height:100vh;min-height:600px;overflow:hidden;color:#fff;text-align:center;background:#4b2f7f url(img/hero_poster.jpg) center/cover;display:flex;align-items:flex-end;justify-content:center}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,20,70,.35) 0,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 45%,rgba(60,30,90,.85) 100%)}
+  .hero .in{position:relative;z-index:1;padding:0 20px 70px;max-width:820px}
+  .hero .logo{width:min(560px,86vw);margin:0 auto 6px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+  .hero .ko{font-family:Jua,sans-serif;font-size:clamp(24px,3.4vw,34px);margin:0}
+  .hero .one{font-size:clamp(16px,2vw,19px);margin:6px 0 24px;opacity:.95}
+  .badge{display:inline-block;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);margin-bottom:18px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn{font-family:Jua,sans-serif;display:inline-block;padding:12px 26px;border-radius:999px;text-decoration:none;font-size:19px;border:3px solid var(--cocoa);box-shadow:0 4px 0 var(--cocoa);transition:transform .1s,box-shadow .1s}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--cocoa)}
+  .btn.mint{background:var(--mint);color:var(--cocoa)}
+  .btn.peach{background:var(--peach);color:var(--cocoa)}
+  .btn.white{background:#fff;color:var(--cocoa)}
+
+  section{padding:96px 0}
+  .kicker{font-family:Jua,sans-serif;color:var(--rose);font-size:18px}
+  h2{font-family:Jua,sans-serif;font-weight:400;font-size:clamp(32px,4.4vw,46px);line-height:1.25;margin:2px 0 12px;color:var(--cocoa)}
+  h3{font-family:Jua,sans-serif;font-weight:400;font-size:25px;margin:0 0 6px;color:var(--cocoa)}
+  .lead{color:var(--muted);margin:0 0 36px;font-size:18px}
+
+  /* 놀거리 */
+  .play{background:var(--sunset);color:#fff}
+  .play h2,.play .kicker{color:#fff}
+  .play .kicker{opacity:.85}
+  .play .lead{color:rgba(255,255,255,.9)}
+  .feats{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .feat{background:#fff;color:var(--ink);border:3px solid var(--cocoa);border-radius:24px;overflow:hidden;box-shadow:0 6px 0 var(--cocoa)}
+  .feat img{width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:3px solid var(--cocoa)}
+  .feat .t{padding:16px 20px 20px}
+  .feat p{margin:0;color:var(--muted)}
+  .feat .say{font-family:Jua,sans-serif;color:var(--rose);font-size:20px}
+  .minis{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:22px}
+  .mini{background:rgba(255,255,255,.16);border:2px dashed rgba(255,255,255,.7);border-radius:24px;padding:18px 22px}
+  .mini h3{color:#fff}
+  .mini p{margin:0;color:rgba(255,255,255,.92)}
+  .maps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+  .maps figure{margin:0;text-align:center}
+  .maps img{border-radius:18px;border:3px solid #fff;aspect-ratio:4/3;object-fit:cover;width:100%}
+  .maps figcaption{font-family:Jua,sans-serif;font-size:19px;margin-top:6px}
+
+  /* 만든 사람 */
+  .maker{display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:center}
+  .maker img{border-radius:32px;border:3px solid var(--cocoa);box-shadow:0 6px 0 var(--cocoa)}
+  .maker p{margin:0 0 14px}
+  .steps{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .steps span{background:#fff;border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-size:15px}
+  .steps b{color:var(--violet);margin-right:6px}
+
+  /* 기획 노트 */
+  .notes{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .note{display:grid;grid-template-columns:200px 1fr;gap:28px;padding:30px 0;border-top:2px dashed var(--line)}
+  .note:first-of-type{border-top:0}
+  .note .when{font-family:Jua,sans-serif;color:var(--rose);font-size:20px}
+  .note p{margin:0 0 10px}
+  .numbers{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+  .numbers span{background:var(--cream);border:2px solid var(--line);border-radius:14px;padding:6px 12px;font-size:15px}
+  .numbers b{color:var(--cocoa)}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600}
+  .tw{overflow-x:auto}
+  code{background:var(--cream);padding:1px 6px;border-radius:6px}
+  .tools{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
+  .tools div{background:var(--cream);border-radius:14px;padding:12px 16px;font-size:15px}
+  .tools b{display:block;color:var(--cocoa)}
+
+  /* 다른 작업 */
+  .works{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .work{background:#fff;border:2px solid var(--line);border-radius:20px;padding:22px}
+  .work .meta{font-size:14px;color:var(--muted);margin-bottom:8px}
+  .work p{margin:0 0 8px}
+  .work .back{font-size:15px;color:var(--muted)}
+
+  .end{background:var(--sunset);color:#fff;text-align:center}
+  .end h2{color:#fff}
+  .contact{display:inline-grid;gap:6px;text-align:left;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:20px 28px;margin:10px 0 26px;font-size:18px}
+  .contact a{color:#fff}
+  footer{background:#3a2560;color:rgba(255,255,255,.7);text-align:center;font-size:14px;padding:22px 20px}
+
+  @media (max-width:820px){
+    .feats,.works,.tools,.minis{grid-template-columns:1fr}
+    .maps{grid-template-columns:repeat(2,1fr)}
+    .maker{grid-template-columns:1fr} .maker img{max-width:220px}
+    .note{grid-template-columns:1fr;gap:6px}
+    nav a.m{display:none}
+    section{padding:64px 0}
+  }
+  @media (prefers-reduced-motion:reduce){ .hero video{display:none} }
+  @media print{
+    nav,.hero video,.btns{display:none}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .hero{height:auto;min-height:0;padding-top:320px}
+    section{padding:40px 0}
+    .feat,.work,.note,figure,tr{break-inside:avoid}
+    h2,h3{break-after:avoid}
+    body{font-size:14px}
+    /* A4 폭(약 794px)은 휴대폰용 한 줄 배치에 걸리므로, 인쇄 때는 두 줄 배치로 되돌린다 */
+    .feats,.minis,.works,.tools{grid-template-columns:1fr 1fr}
+    .maps{grid-template-columns:repeat(4,1fr)}
+    .maker{grid-template-columns:160px 1fr} .maker img{max-width:160px}
+    .note{grid-template-columns:130px 1fr;gap:18px}
+    nav a.m{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav"><div class="wrap">
+  <a class="home" href="#top"><img src="img/logo.png" alt="Bouncelings"></a>
+  <a class="m" href="#play">놀거리</a>
+  <a class="m" href="#maker">만든 사람</a>
+  <a class="m" href="#notes">기획 노트</a>
+  <a class="m" href="#works">다른 작업</a>
+  <a class="m" href="#contact">연락</a>
+</div></nav>
+
+<header class="hero" id="top">
+  <video autoplay muted loop playsinline preload="metadata" poster="img/hero_poster.jpg">
+    <source src="img/hero.mp4" type="video/mp4">
+  </video>
+  <div class="in">
+    <span class="badge">스팀 출시 준비 중</span>
+    <img class="logo" src="img/logo.png" alt="Bouncelings">
+    <p class="ko">통통 튀는 특이한 녀석들</p>
+    <p class="one">밤톨들이 같이 오르고, 쫓고, 떨어지는 온라인 게임</p>
+    <div class="btns">
+      <a class="btn mint" href="#play">놀거리 보기</a>
+      <a class="btn white" href="#maker">만든 사람</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="play" id="play"><div class="wrap">
+  <div class="kicker">놀거리</div>
+  <h2>오늘은 뭐 하고 놀까?</h2>
+  <p class="lead">마을 광장에서 친구들을 만나고, 팻말을 따라가면 놀거리가 나와요.</p>
+
+  <div class="feats">
+    <div class="feat">
+      <img src="img/jf_finish.jpg" alt="점프 숲 단계 끝의 둥근 문" loading="lazy">
+      <div class="t"><h3>점프 숲</h3><p>거대한 나무 꼭대기까지 올라가요. 떨어지면?</p><div class="say">철퍽! 아오…</div></div>
+    </div>
+    <div class="feat">
+      <img src="img/chase_cage.jpg" alt="술래잡기에서 잡힌 밤톨이 갇힌 우리" loading="lazy">
+      <div class="t"><h3>술래잡기</h3><p>표 자판기를 다 돌리면 출구가 열려요. 술래한테 잡히면 우리 안으로 쏙.</p></div>
+    </div>
+    <div class="feat">
+      <img src="img/jf_cheer.jpg" alt="점프 숲 완주 축하 창과 '숲의 주인' 칭호" loading="lazy">
+      <div class="t"><h3>숲의 주인</h3><p>5단계를 처음부터 한 번에 오르면 받는 칭호예요.</p></div>
+    </div>
+    <div class="feat">
+      <img src="img/portals.jpg" alt="마을 광장의 점프 숲 입구와 팻말" loading="lazy">
+      <div class="t"><h3>마을 광장</h3><p>다들 여기서 만나요. 팻말 앞에 서면 어디로 가는지 그림으로 보여 줘요.</p></div>
+    </div>
+  </div>
+  <div class="minis">
+    <div class="mini"><h3>끌어올리기 그물</h3><p>먼저 올라갔다면 그물을 내려 보세요. 아래 친구를 끌어올릴 수 있어요. 단, 친구가 가 봤던 단계까지만이에요.</p></div>
+    <div class="mini"><h3>절대 누르지 마시오</h3><p>점프 숲 어딘가의 빨간 버튼. 누르면 대포 아니면 폭탄이에요. 그래도 저장한 데까진 안 날아가요.</p></div>
+  </div>
+
+  <div class="maps">
+    <figure><img src="img/market.jpg" alt="장터 골목" loading="lazy"><figcaption>장터 골목</figcaption></figure>
+    <figure><img src="img/eastern.jpg" alt="동양 마을" loading="lazy"><figcaption>동양 마을</figcaption></figure>
+    <figure><img src="img/lighthouse.jpg" alt="등대 섬" loading="lazy"><figcaption>등대 섬</figcaption></figure>
+    <figure><img src="img/jf_fall.jpg" alt="점프 숲" loading="lazy"><figcaption>점프 숲</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="maker"><div class="wrap">
+  <div class="maker">
+    <img src="img/mint.jpg" alt="민트색 밤톨 캐릭터">
+    <div>
+      <div class="kicker">만든 사람</div>
+      <h2>안녕하세요, 우현제입니다</h2>
+      <p>외토리라는 이름으로 이 게임을 혼자 만들고 있어요. 10년 동안 음악을 하다가, 올해 2월에 처음 게임 공부를 시작했습니다.</p>
+      <p>코드와 그림은 대부분 AI(Claude Code, ComfyUI)가 만들어요. 저는 뭘 만들지 정하고, 직접 해 보고, 이상하면 고칩니다. 친구들이 시험판을 하는 걸 옆에서 보는 게 제일 재밌어요.</p>
+      <div class="steps">
+        <span><b>~2025</b>음악 10년 (작·편곡, 믹싱)</span>
+        <span><b>2025–26</b>KT텔레캅 고객센터</span>
+        <span><b>2026.02</b>어소트락 국비 과정 (C++, DirectX 11, 언리얼 5)</span>
+        <span><b>2026.09</b>이 게임 시작</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="notes" id="notes"><div class="wrap">
+  <div class="kicker">기획 노트</div>
+  <h2>만들면서 정한 것들</h2>
+  <p class="lead">결정할 때마다 날짜, 이유, 안 고른 쪽을 같이 적어 둬요. 그중 몇 개예요.</p>
+
+  <div class="note">
+    <div class="when">첫 시험판</div>
+    <div>
+      <p>원래는 술래잡기가 중심이었어요. 그런데 시험하러 온 동료 셋이 술래잡기를 한 판 하고는 점프 맵만 4시간 30분을 했어요. "떨어져도 열이 안 받는다"면서요.</p>
+      <p>그래서 점프 맵도 술래잡기만큼 키우기로 했고, 지금은 놀거리끼리 서로 이어지게 만드는 중이에요. 한 데서 얻은 게 다른 데 갈 이유가 되면, 금방 질리지 않을 거라고 봤어요. 제작(크래프트) 요소는 아직 다듬고 있고, 동양 마을처럼 한국 느낌도 넣고 있어요.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="when">10/14 · 완주 보상</div>
+    <div>
+      <p>처음 완주할 때만 크게 주고, 다시 깨면 줄였어요. 한 자리에서 도토리만 긁어모으긴 어렵게, 대신 하루에 한 번은 들를 이유가 있게요.</p>
+      <div class="numbers">
+        <span>처음 완주 <b>+400</b> · 칭호 · 금빛 증표</span>
+        <span>그날 첫 완주 <b>+150</b></span>
+        <span>그 뒤 <b>+30</b></span>
+        <span>내 기록 깨면 <b>+50</b></span>
+      </div>
+      <p style="font-size:15px;color:var(--muted)">숫자는 표 파일에 따로 빼 둬서 코드를 안 건드리고 고쳐요.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="when">10/17 · 선물 뽑기</div>
+    <div>
+      <p>도토리 50개로 한 번, 꾸밈 아이템 중 하나가 나와요. 비싼 건 드물게 나오고(<code>1 / 값^1.5</code>), 확률은 화면에 다 보여 줘요. 겹치면 그 아이템 값의 1/10을 돌려받아요.</p>
+      <p>도토리는 게임을 해서만 모을 수 있고, 돈으로는 안 팔아요.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="when">그 밖에</div>
+    <div class="tw"><table>
+      <tr><th>날짜</th><th>정한 것</th><th>왜</th><th>안 고른 쪽</th></tr>
+      <tr><td>10/14</td><td>그물은 친구가 가 본 단계까지만</td><td>갈고리는 잘하는 사람만 써서, 서툰 친구도 도울 방법이 필요했음</td><td>아래 사람 끌어올리기 금지</td></tr>
+      <tr><td>10/14</td><td>빨간 버튼을 눌러도 저장은 안 지움</td><td>장난은 살리고, 열심히 오른 사람이 다 잃지는 않게</td><td>그 단계 전원 날림</td></tr>
+      <tr><td>10/15</td><td>쿼터뷰에서 화면 고정 뺌</td><td>고정하면 캐릭터가 화면 밖으로 사라지고, 가장자리 이동은 멀미가 남</td><td>화면 고정 유지</td></tr>
+      <tr><td>—</td><td>토끼 이름 "토토" → "또또"</td><td>한국에선 "토토"가 스포츠 내기로 읽힘</td><td>그대로 두기</td></tr>
+    </table></div>
+  </div>
+
+  <div class="note">
+    <div class="when">AI랑 같이 만드는 법</div>
+    <div>
+      <p>AI 작업창을 역할별로 여러 개 띄워 동시에 돌려요(제작, 마케팅, 번역, 음악, 스팀 설정). 서로 같은 파일을 고치거나 그래픽카드를 같이 잡는 일이 생겨서 이런 걸 만들었어요. 만드는 건 AI가 했고, 뭘 막고 뭘 검사할지는 제가 정했어요.</p>
+      <div class="tools">
+        <div><b>현황판</b>모두 일 시작 전에 읽고, 끝나면 자기 줄을 고쳐요.</div>
+        <div><b>그래픽카드 "사용 중" 팻말</b>무거운 일 전에 걸고, 끝나면 내려요.</div>
+        <div><b>설계 규칙 검사</b>코드를 고칠 때마다 정해 둔 규칙을 어겼는지 봐요.</div>
+        <div><b>화면 없는 시험 145개</b>그래픽카드 없이 게임 규칙만 돌려서 확인해요.</div>
+      </div>
+      <div class="numbers" style="margin-top:14px">
+        <span>시작 <b>9월 30일</b></span><span>3주 동안 커밋 <b>750개+</b></span><span>맵 <b>5개</b></span><span>친구 시험판 배포</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="works"><div class="wrap">
+  <div class="kicker">다른 작업</div>
+  <h2>공부하면서 만든 것들</h2>
+  <p class="lead">다 만들고 다시 해 보면서, 아쉬운 점도 같이 적었어요.</p>
+  <div class="works">
+    <div class="work">
+      <h3>EchoBreaker</h3>
+      <div class="meta">마이크로 하는 잠입 게임 · DirectX 11 · 2026.06</div>
+      <p>낮게 "음—" 하고 울리면 문이 열리고, 크게 말하면 경비병이 쫓아와요. 처음엔 소리가 크면 열리게 했더니 에어컨 소리에도 열려서, 소리의 크기 대신 낮은 소리가 얼마나 섞였는지로 바꿨어요. 제 목소리를 재 보고 판정 대역을 80~260Hz에서 70~190Hz로 좁혔어요.</p>
+      <p class="back">다음엔 음악 박자에 맞춰 말을 넣는 리듬 요소를 붙여 보고 싶어요. · <a href="https://github.com/dnguswp12345-spec/EchoBreaker">GitHub</a></p>
+    </div>
+    <div class="work">
+      <h3>CatLoopDefense</h3>
+      <div class="meta">4인 협동 타워디펜스 · 언리얼 5 · 2026.07~08</div>
+      <p>50줄짜리 표에 "몇 웨이브부터, 몇 웨이브마다, 얼마씩 세지는지"를 넣어 200웨이브를 만들었어요. 사람이 늘면 적도 늘고, 한꺼번에 나오는 적 수엔 상한을 뒀어요.</p>
+      <p class="back">다시 해 보니 길이만 늘고 재미는 약했어요. 다시 만든다면 웨이브 사이에 증강 3개 중 하나를 고르고, 유닛을 5개 후보 중에서 뽑게 할 거예요.</p>
+    </div>
+    <div class="work">
+      <h3>ProjectPG</h3>
+      <div class="meta">3인 팀 · 생존 슈터 · 언리얼 5 · 2026.07~10</div>
+      <p>팀이 모은 오브젝트 152개를 9가지 틀과 표 한 장으로 정리했어요. 맵을 세 구역으로 나눠 약한 무리, 센 몬스터, 보스를 따로 두었어요.</p>
+      <p class="back">맵 생성·캐릭터·인벤토리는 팀원이 맡았어요.</p>
+    </div>
+    <div class="work">
+      <h3>DirectX 11 게임 3종</h3>
+      <div class="meta">리듬 · 비주얼노벨 · 노래방 · 2026.05~06</div>
+      <p>대사, 선택지, 레벨 진행을 데이터로 빼서 같은 엔진으로 장르를 바꿔 봤어요.</p>
+      <p class="back">리듬 게임은 원이 바깥으로 퍼지게 하고, 숫자 패드 1~9를 화면 9칸에 맞추면 더 또렷했을 것 같아요.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="end" id="contact"><div class="wrap">
+  <h2>연락처</h2>
+  <div class="contact">
+    <div>우현제 (외토리)</div>
+    <div>메일 <a href="mailto:oddbunch.works@gmail.com">oddbunch.works@gmail.com</a></div>
+    <div>전화 <a href="tel:01044690931">010-4469-0931</a></div>
+  </div>
+  <div class="btns">
+    <a class="btn peach" href="woohyunje_portfolio.pdf">포트폴리오 PDF</a>
+    <a class="btn white" href="https://github.com/dnguswp12345-spec">GitHub</a>
+  </div>
+</div></section>
+
+</main>
+
+<footer>© 2026 Odd Bunch · 특이한 녀석들 · HTML만으로 된 정적 페이지예요 (서버·로그인·입력 폼 없음)</footer>
+
+<script>
+  // 첫 화면 영상을 지나 내려가면 메뉴 띠에 흰 배경을 깔아 글자가 읽히게 한다.
+  const nav = document.getElementById('nav');
+  const hero = document.querySelector('.hero');
+  addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > hero.offsetHeight - 80), {passive:true});
+</script>
+</body>
+</html>
