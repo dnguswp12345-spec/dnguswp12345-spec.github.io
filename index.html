@@ -68,6 +68,9 @@
   .pic img{width:100%;border-radius:26px;border:4px solid var(--cocoa);box-shadow:0 8px 0 var(--cocoa)}
   .pic .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .pic .two img{box-shadow:0 5px 0 var(--cocoa);border-width:3px}
+  .play-demo{width:100%;max-width:480px;margin:22px 0 0}
+  .play-demo video{width:100%;aspect-ratio:16/9;object-fit:contain;background:#1b1226;border:3px solid rgba(255,255,255,.75);border-radius:16px}
+  .play-demo figcaption{font-size:14px;color:rgba(255,255,255,.85);margin-top:8px}
   .say{font-family:Jua,sans-serif;font-size:28px;line-height:1.3;margin:6px 0 10px}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
   .chips span{font-size:15px;font-weight:600;padding:6px 12px;border-radius:12px}
@@ -210,6 +213,13 @@
       <p>거대한 나무를 빙글빙글 감고 올라가요. 다섯 단계, 꼭대기까지.</p>
       <div class="say">떨어지면? 철퍽! 아오…</div>
       <p>처음부터 한 번에 끝까지 오르면 '숲의 주인' 칭호를 받아요.</p>
+      <figure class="play-demo">
+        <video controls playsinline preload="none" poster="img/jump_forest_demo_poster.jpg" width="1920" height="1080" aria-label="점프 숲 플레이 시연 영상">
+          <source src="img/jump_forest_demo.mp4" type="video/mp4">
+          <a href="img/jump_forest_demo.mp4">점프 숲 플레이 시연 영상 보기</a>
+        </video>
+        <figcaption>점프 숲 · 플레이 시연</figcaption>
+      </figure>
     </div>
   </div>
 
