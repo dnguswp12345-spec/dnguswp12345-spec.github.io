@@ -73,18 +73,31 @@
   .play-demo figcaption{font-size:14px;color:rgba(255,255,255,.85);margin-top:8px}
   .say{font-family:Jua,sans-serif;font-size:28px;line-height:1.3;margin:6px 0 10px}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
-  .chips span{font-size:15px;font-weight:600;padding:6px 12px;border-radius:12px}
+  .chips{list-style:none;padding:0}
+  .chips span,.chips li{font-size:15px;font-weight:600;padding:6px 12px;border-radius:12px}
 
   /* 01 놀거리: 노을 */
   .play{background:var(--sunset);color:#fff}
   .play .kicker{background:rgba(255,255,255,.2)}
   .play .lead,.play p{color:rgba(255,255,255,.94)}
   .play .say{color:#ffe08a}
-  .play .chips span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5)}
-  .maps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+  .play .chips span,.play .chips li{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5)}
+  .maps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:20px}
   .maps figure{margin:0;text-align:center}
   .maps img{border-radius:18px;border:3px solid #fff;aspect-ratio:4/3;object-fit:cover;width:100%}
   .maps figcaption{font-family:Jua,sans-serif;font-size:20px;margin-top:8px}
+
+  /* 첫 화면 아래 기술 요약 */
+  .tech{background:#fff;padding:56px 0;border-bottom:1px solid var(--line)}
+  .tech h2{font-size:clamp(28px,4vw,38px);color:var(--cocoa);margin-bottom:18px}
+  .tech ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .tech li{background:var(--cream);border:3px solid var(--cocoa);border-radius:18px;padding:14px 16px;font-size:16px;line-height:1.55;min-width:0;overflow-wrap:anywhere}
+  .tech li b{display:block;font-family:Jua,sans-serif;font-weight:400;font-size:20px;color:var(--violet)}
+  .tech .how{margin:20px 0 0;font-size:17px;color:var(--muted)}
+  .tech .how b{color:var(--rose)}
+  .code-btn{margin-top:14px}
+  .btn.code{background:var(--plum);color:#fff;font-size:18px}
+  .steps .d{display:block}
 
   /* 02 만든 사람: 민트 */
   .maker{background:var(--mint-l)}
@@ -103,8 +116,8 @@
   .notes .lead{color:#d8cdea}
   .notes .when{display:inline-block;font-family:Jua,sans-serif;font-size:19px;color:var(--plum);background:var(--peach);padding:2px 14px;border-radius:999px;margin-bottom:12px}
   .notes .pic img{border-color:#fff;box-shadow:0 8px 0 rgba(0,0,0,.35)}
-  .notes .chips span{background:#fff;color:var(--cocoa)}
-  .notes .chips span b{color:var(--rose)}
+  .notes .chips span,.notes .chips li{background:#fff;color:var(--cocoa)}
+  .notes .chips li b,.notes .chips span b{color:var(--rose)}
   .card{background:#fff;color:var(--ink);border-radius:26px;padding:30px 32px}
   .card .when{background:var(--mint)}
   table{width:100%;border-collapse:collapse;font-size:16px}
@@ -147,9 +160,11 @@
     .row.flip .pic{order:0}
     .me img{max-width:220px}
     .maps,.steps,.tools{grid-template-columns:repeat(2,1fr)}
+    .maps figure:last-child{grid-column:1/-1}
     .wlist{grid-template-columns:1fr}
     nav a.m{display:none}
     section{padding:72px 0}
+    .tech ul{grid-template-columns:1fr}
     body{font-size:17px}
   }
   @media (prefers-reduced-motion:reduce){ .hero video{display:none} }
@@ -163,7 +178,9 @@
     .row.flip .pic{order:2}
     .row.duo{grid-template-columns:1fr;gap:16px}
     .me{grid-template-columns:150px 1fr;gap:24px}
-    .maps,.steps,.tools{grid-template-columns:repeat(4,1fr)}
+    .steps,.tools{grid-template-columns:repeat(4,1fr)}
+    .maps{grid-template-columns:repeat(5,1fr)}
+    .maps figure:last-child{grid-column:auto}
     .wlist{grid-template-columns:1fr 1fr}
     .card,.w,figure,tr,.tools div{break-inside:avoid}
     h2,h3{break-after:avoid}
@@ -183,7 +200,7 @@
 </div></nav>
 
 <header class="hero" id="top">
-  <video autoplay muted loop playsinline preload="metadata" poster="img/hero_poster.jpg">
+  <video autoplay muted loop playsinline preload="auto" poster="img/hero_poster.jpg" aria-hidden="true">
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="in">
@@ -199,6 +216,20 @@
 </header>
 
 <main>
+
+<!-- 기술 요약 -->
+<section class="tech" id="tech"><div class="wrap">
+  <h2>기술 요약</h2>
+  <ul>
+    <li><b>엔진·언어</b>언리얼 엔진 5, C++</li>
+    <li><b>게임플레이</b>게임 모드, 판 흐름, 잡기, 아이템 등 게임플레이 시스템</li>
+    <li><b>온라인</b>데디케이티드 서버·EOS 온라인 구조 준비</li>
+    <li><b>성능·시험</b>목표 RTX 4060에서 60fps, 화면 없는 자동 시험(헤드리스 테스트)</li>
+    <li><b>에셋 파이프라인</b>Blender, ComfyUI</li>
+    <li><b>자체 엔진</b>DirectX 11 자체 엔진(EchoBreaker)</li>
+  </ul>
+  <p class="how"><b>개발 방식</b> AI 페어 프로그래밍(Claude Code)으로 구현 속도를 높이고, 설계·기획·검수·디버깅·시험 자동화는 직접 주도.</p>
+</div></section>
 
 <!-- 01 놀거리: 플레이어에게 말 거는 말투 -->
 <section class="play" id="play"><div class="wrap">
@@ -230,6 +261,7 @@
       <p>표 자판기를 다 돌리면 출구가 열려요. 술래한테 잡히면 밤송이 우리에 갇히고요.</p>
       <div class="say">친구가 [F]를 2초 꾹!</div>
       <p>그러면 다시 나올 수 있어요. 세 번째 잡히면 그땐 정말 탈락이에요.</p>
+      <div class="code-btn"><a class="btn code" href="https://github.com/dnguswp12345-spec/BamtolChase-showcase" target="_blank" rel="noopener">코드 보기</a></div>
     </div>
   </div>
 
@@ -238,7 +270,13 @@
     <div>
       <h3>모자마다 능력이 달라요</h3>
       <p>도토리 모자는 다리가 튼튼해지고, 나뭇잎은 바람을 타요. 새둥지를 쓰면 30초마다 새가 날아올라 다른 밤톨 위치를 3초 동안 알려 줘요.</p>
-      <div class="chips"><span>도토리 · 튼튼한 다리</span><span>나뭇잎 · 바람 타기</span><span>장수풍뎅이 · 껍질 방패</span><span>밤송이 · 따끔</span><span>새둥지 · 정찰 새</span></div>
+      <ul class="chips">
+        <li>도토리 · 튼튼한 다리</li>
+        <li>나뭇잎 · 바람 타기</li>
+        <li>장수풍뎅이 · 껍질 방패</li>
+        <li>밤송이 · 따끔</li>
+        <li>새둥지 · 정찰 새</li>
+      </ul>
     </div>
   </div>
 
@@ -247,6 +285,7 @@
     <figure><img src="img/map_eastern_air.jpg" alt="벚꽃 동양 마을" loading="lazy"><figcaption>벚꽃 동양 마을</figcaption></figure>
     <figure><img src="img/lighthouse.jpg" alt="바닷가 등대섬" loading="lazy"><figcaption>바닷가 등대섬</figcaption></figure>
     <figure><img src="img/jf_finish.jpg" alt="점프 숲" loading="lazy"><figcaption>점프 숲</figcaption></figure>
+    <figure><img src="img/lobby.jpg" alt="마을 광장" loading="lazy"><figcaption>마을 광장</figcaption></figure>
   </div>
 </div></section>
 
@@ -262,10 +301,10 @@
     </div>
   </div>
   <div class="steps">
-    <div><b>~2025</b>음악 10년<br>작·편곡, 믹싱</div>
-    <div><b>2021–2026</b>병원 접수·키오스크 관리,<br>KT텔레캅 고객센터</div>
-    <div><b>2026.02</b>어소트락 국비 과정<br>C++, DirectX 11, 언리얼 5</div>
-    <div><b>2026.09</b>이 게임 시작<br>스팀 출시 준비</div>
+    <div><b>~2025</b> <span class="d">음악 10년<br>작·편곡, 믹싱</span></div>
+    <div><b>2021–2026</b> <span class="d">병원 접수·키오스크 관리,<br>KT텔레캅 고객센터</span></div>
+    <div><b>2026.02</b> <span class="d">어소트락 국비 과정<br>C++, DirectX 11, 언리얼 5</span></div>
+    <div><b>2026.09</b> <span class="d">이 게임 시작<br>스팀 출시 준비</span></div>
   </div>
 </div></section>
 
@@ -291,7 +330,12 @@
       <span class="when">10/14 · 완주 보상</span>
       <h3>처음만 크게, 다시 깨면 조금</h3>
       <p>같은 탑을 계속 돌면서 도토리만 모으는 건 막고 싶었어요. 대신 하루에 한 번은 들를 이유가 남게 했어요.</p>
-      <div class="chips"><span>처음 완주 <b>+400</b> · 칭호 · 금빛 증표</span><span>그날 첫 완주 <b>+150</b></span><span>그 뒤 <b>+30</b></span><span>내 기록 깨면 <b>+50</b></span></div>
+      <ul class="chips">
+        <li>처음 완주 <b>+400</b> · 칭호 · 금빛 증표</li>
+        <li>그날 첫 완주 <b>+150</b></li>
+        <li>그 뒤 <b>+30</b></li>
+        <li>내 기록 깨면 <b>+50</b></li>
+      </ul>
       <p style="font-size:16px;color:#cbbfe0;margin-top:10px">숫자는 표 파일에 따로 빼 둬서 코드를 안 건드리고 고쳐요.</p>
     </div>
   </div>
@@ -336,12 +380,17 @@
   <h3 style="color:#fff;margin-top:20px">AI랑 같이 만드는 법</h3>
   <p style="max-width:780px">AI 작업창을 역할별로 여러 개 띄워 동시에 돌려요(제작, 마케팅, 번역, 음악, 스팀 설정). 서로 같은 파일을 고치거나 그래픽카드를 같이 잡는 일이 생겨서 아래 장치를 만들었어요. 만드는 건 AI가 했고, 뭘 막고 뭘 검사할지는 제가 정했어요.</p>
   <div class="tools">
-    <div><div class="ic">📋</div><b>현황판</b>모두 일 시작 전에 읽고, 끝나면 자기 줄을 고쳐요.</div>
-    <div><div class="ic">🪧</div><b>그래픽카드 팻말</b>무거운 일 전에 "사용 중"을 걸고, 끝나면 내려요.</div>
-    <div><div class="ic">🔎</div><b>설계 규칙 검사</b>코드를 고칠 때마다 정해 둔 규칙을 어겼는지 봐요.</div>
-    <div><div class="ic">🧪</div><b>화면 없는 시험 145개</b>그래픽카드 없이 게임 규칙만 돌려서 확인해요.</div>
+    <div><div class="ic">📋</div><b>현황판</b> 모두 일 시작 전에 읽고, 끝나면 자기 줄을 고쳐요.</div>
+    <div><div class="ic">🪧</div><b>그래픽카드 팻말</b> 무거운 일 전에 "사용 중"을 걸고, 끝나면 내려요.</div>
+    <div><div class="ic">🔎</div><b>설계 규칙 검사</b> 코드를 고칠 때마다 정해 둔 규칙을 어겼는지 봐요.</div>
+    <div><div class="ic">🧪</div><b>화면 없는 시험 145개</b> 그래픽카드 없이 게임 규칙만 돌려서 확인해요.</div>
   </div>
-  <div class="chips" style="margin-top:22px"><span>시작 <b>9월 30일</b></span><span>3주 동안 커밋 <b>750개+</b></span><span>맵 <b>5개</b></span><span>친구 시험판 배포</span></div>
+  <ul class="chips" style="margin-top:22px">
+    <li>시작 <b>9월 30일</b></li>
+    <li>3주 동안 커밋 <b>750개+</b></li>
+    <li>맵 <b>5개</b></li>
+    <li>친구 시험판 배포</li>
+  </ul>
 </div></section>
 
 <!-- 04 다른 작업: 짧게 -->
@@ -362,7 +411,7 @@
       <h3>CatLoopDefense</h3>
       <div class="meta">4인 협동 타워디펜스 · 언리얼 5 · 2026.07~08</div>
       <p>50줄짜리 표에 "몇 웨이브부터, 몇 웨이브마다, 얼마씩 세지는지"를 넣어 200웨이브를 만들었어요. 사람이 늘면 적도 늘고, 한꺼번에 나오는 적 수엔 상한을 뒀어요.</p>
-      <p class="back"><b>아쉬운 점</b> 길이만 늘고 재미는 약했어요. 다시 만든다면 웨이브 사이에 증강 3개 중 하나를 고르고, 유닛을 5개 후보 중에서 뽑게 할 거예요.</p>
+      <p class="back"><b>배운 점</b> 웨이브 길이를 늘리는 것만으로는 재미가 깊어지지 않는다는 걸 배웠어요. 다시 만든다면 웨이브 사이에 증강 3개 중 하나를 고르고, 유닛을 5개 후보 중에서 뽑게 할 거예요.</p>
     </div>
     <div class="w">
       <div class="shots"><img src="img/w_rhythm.jpg" alt="DirectX 11 리듬 게임 화면" loading="lazy"><img src="img/w_vn.jpg" alt="DirectX 11 노래방·비주얼노벨 화면" loading="lazy"></div>
@@ -384,6 +433,18 @@
       <div class="meta">3인 팀 · 생존 슈터 · 언리얼 5 · 2026.07~10</div>
       <p>팀이 모은 오브젝트 152개를 9가지 틀과 표 한 장으로 정리했어요. 맵을 세 구역으로 나눠 약한 무리, 센 몬스터, 보스를 따로 두었어요.</p>
       <p class="back">맵 생성·캐릭터·인벤토리는 팀원이 맡았어요.</p>
+    </div>
+    <div class="w">
+      <h3>BireaLyricMV</h3>
+      <div class="meta">리릭 뮤직비디오 렌더러 · Electron</div>
+      <p>음원·일러스트·가사로 오디오 반응형 리릭 뮤직비디오를 만들어요. FFT 사전 분석, 결정론적 오프라인 렌더, FFmpeg로 영상을 뽑아요.</p>
+      <p class="back"><a href="https://github.com/dnguswp12345-spec/BireaLyricMV" target="_blank" rel="noopener">GitHub</a></p>
+    </div>
+    <div class="w">
+      <h3>PriceKDT</h3>
+      <div class="meta">BaseCharacter 설계까지 진행</div>
+      <p>저장소 설명은 "BaseCharacter 설계까지"예요. 아직 코드를 올리지 않은 상태라 정리되는 대로 채울게요.</p>
+      <p class="back"><a href="https://github.com/dnguswp12345-spec/PriceKDT" target="_blank" rel="noopener">GitHub</a></p>
     </div>
   </div>
 </div></section>
