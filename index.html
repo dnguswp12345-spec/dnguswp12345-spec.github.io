@@ -131,7 +131,20 @@
   .tools b{display:block;font-size:18px;color:#fff;margin-bottom:6px}
   .tools .ic{font-size:30px;line-height:1;margin-bottom:10px}
 
-  /* 04 다른 작업: 크림 */
+  /* 04 문제 해결: 흰 바탕 카드 */
+  .fix{background:#fff}
+  .fix .kicker{background:var(--violet);color:#fff}
+  .fix h2{color:var(--cocoa)}
+  .cases{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .case{background:var(--cream);border:3px solid var(--cocoa);border-radius:22px;padding:22px 24px;box-shadow:0 5px 0 var(--cocoa);min-width:0}
+  .case .tag{display:inline-block;font-size:13px;font-weight:800;color:#fff;background:var(--rose);padding:2px 10px;border-radius:999px;margin-bottom:8px}
+  .case h3{font-size:22px;color:var(--cocoa);margin-bottom:10px}
+  .case dl{margin:0;display:grid;grid-template-columns:44px 1fr;gap:6px 10px;font-size:15.5px;line-height:1.6}
+  .case dt{font-weight:800;color:var(--violet)}
+  .case dd{margin:0}
+  .case dd b{color:var(--rose)}
+
+  /* 05 다른 작업: 크림 */
   .works .kicker{background:var(--peach);color:var(--cocoa)}
   .works h2{color:var(--cocoa)}
   .wlist{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
@@ -161,7 +174,7 @@
     .me img{max-width:220px}
     .maps,.steps,.tools{grid-template-columns:repeat(2,1fr)}
     .maps figure:last-child{grid-column:1/-1}
-    .wlist{grid-template-columns:1fr}
+    .wlist,.cases{grid-template-columns:1fr}
     nav a.m{display:none}
     section{padding:72px 0}
     .tech ul{grid-template-columns:1fr}
@@ -181,8 +194,8 @@
     .steps,.tools{grid-template-columns:repeat(4,1fr)}
     .maps{grid-template-columns:repeat(5,1fr)}
     .maps figure:last-child{grid-column:auto}
-    .wlist{grid-template-columns:1fr 1fr}
-    .card,.w,figure,tr,.tools div{break-inside:avoid}
+    .wlist,.cases{grid-template-columns:1fr 1fr}
+    .card,.w,.case,figure,tr,.tools div{break-inside:avoid}
     h2,h3{break-after:avoid}
     .lead{margin-bottom:26px}
   }
@@ -195,6 +208,7 @@
   <a class="m" href="#play">놀거리</a>
   <a class="m" href="#maker">만든 사람</a>
   <a class="m" href="#notes">기획 노트</a>
+  <a class="m" href="#fix">문제 해결</a>
   <a class="m" href="#works">다른 작업</a>
   <a class="m" href="#contact">연락처</a>
 </div></nav>
@@ -219,16 +233,16 @@
 
 <!-- 기술 요약 -->
 <section class="tech" id="tech"><div class="wrap">
-  <h2>기술 요약</h2>
+  <h2>재현하고, 고치고, 숫자로 확인합니다</h2>
   <ul>
-    <li><b>엔진·언어</b>언리얼 엔진 5, C++</li>
-    <li><b>게임플레이</b>게임 모드, 판 흐름, 잡기, 아이템 등 게임플레이 시스템</li>
-    <li><b>온라인</b>데디케이티드 서버·EOS 온라인 구조 준비</li>
-    <li><b>성능·시험</b>목표 RTX 4060에서 60fps, AI 도구와 함께 만든 화면 없는 자동 시험(헤드리스 테스트)</li>
-    <li><b>에셋 파이프라인</b>Blender, ComfyUI</li>
-    <li><b>자체 엔진</b>DirectX 11 자체 엔진(EchoBreaker)</li>
+    <li><b>멀티플레이 버그</b>방장+손님 두 게임을 띄우는 시험으로 재현. 구출 뒤 못 움직이는 버그 실패 14/35 → 0/35</li>
+    <li><b>성능</b>측정기부터 만들고 원인을 찾음. 방장의 프레임당 액터 복제 처리 47.3 → 14.7 (-69%)</li>
+    <li><b>메모리</b>200판 반복 시험에서 판당 3.3MB 증가 발견, 엔진 위젯 누수를 추적해 2.0MB로</li>
+    <li><b>네트워크 연출</b>방장 화면의 손님 떨림, 지연 40±25ms 조건에서 0.154 → 0.001</li>
+    <li><b>엔진·언어</b>언리얼 엔진 5 C++ (서버 권한 복제·RPC, 데이터 테이블, UMG)</li>
+    <li><b>자체 엔진</b>C++ / DirectX 11 자체 엔진 게임 4종 (EchoBreaker 등)</li>
   </ul>
-  <p class="how"><b>개발 방식</b> AI 페어 프로그래밍(Claude Code)으로 구현 속도를 높이고, 설계·기획·검수·디버깅은 직접 주도하고, 자동 시험은 AI 도구와 함께 만들어 확인.</p>
+  <p class="how"><b>AI를 쓰는 방식</b> 구현은 AI 도구(Claude Code)와 함께 빠르게 하고, 무엇을 고칠지와 고친 것을 받아들일지는 시험 결과를 보고 직접 정합니다. <a href="#fix" style="color:var(--violet);font-weight:700">문제 해결 사례 보기 →</a></p>
 </div></section>
 
 <!-- 01 놀거리: 플레이어에게 말 거는 말투 -->
@@ -386,15 +400,49 @@
   </div>
   <ul class="chips" style="margin-top:22px">
     <li>시작 <b>9월 30일</b></li>
-    <li>3주 동안 커밋 <b>750개+</b></li>
+    <li>화면 없는 자동 시험 <b>722개</b></li>
     <li>맵 <b>5개</b></li>
     <li>친구 시험판 배포</li>
   </ul>
 </div></section>
 
-<!-- 04 다른 작업: 짧게 -->
+<!-- 04 문제 해결: 증상 → 원인 → 판단 → 결과 -->
+<section class="fix" id="fix"><div class="wrap">
+  <span class="kicker">04 · 문제 해결</span>
+  <h2>재현하고, 고치고, 같은 조건에서 확인</h2>
+  <p class="lead">숫자는 모두 커밋 기록과 측정 문서에 남긴 값이에요. 고치기 전과 후를 같은 시험으로 비교했어요.</p>
+  <div class="cases">
+    <article class="case"><span class="tag">멀티플레이</span><h3>방장 화면에서만 손님 캐릭터가 떨림</h3><dl>
+      <dt>원인</dt><dd>손님 신호는 초당 약 60번, 방장은 120fps 이상으로 그림. 엔진 기본 보간이 짧고, 신호가 <i>도착한</i> 시각 기준이라 지연 흔들림이 그대로 보였어요.</dd>
+      <dt>판단</dt><dd>보간 시간을 늘리고, 리슨 서버가 보는 손님 몸만 손님이 <i>움직인</i> 시각 기준으로 따라가게 했어요. 엔진 Linear 방식은 몸통 방향까지 늦춰 떨려서, 방향은 메시만 돌렸어요.</dd>
+      <dt>결과</dt><dd>지연 40±25ms에서 번갈아 떨림 <b>0.154 → 0.001</b>. 시험 통과 기준도 0.18 → 0.06으로 조였어요.</dd></dl></article>
+    <article class="case"><span class="tag">멀티플레이</span><h3>구출됐는데 넘어진 채 못 움직임 (가끔)</h3><dl>
+      <dt>원인</dt><dd>갇힌 동안 맞거나 깔리면 '넘어짐'이 켜지는데, 갇힌 몸은 착지하지 않아서 영영 안 꺼졌어요.</dd>
+      <dt>판단</dt><dd>잡힌 동안 맞기·깔리기를 막고, 풀릴 때 끈 뒤 3초 뒤 다시 확인. 남는 경우를 위한 안전장치를 두고, 입력·봇·시험이 같은 조건 함수를 보게 묶었어요.</dd>
+      <dt>결과</dt><dd>35판 시험 실패 방장 <b>14/35 → 0/35</b>, 손님 <b>약 11/26 → 0/34</b>.</dd></dl></article>
+    <article class="case"><span class="tag">멀티플레이</span><h3>아이템 상자가 가끔 안 먹힘</h3><dl>
+      <dt>원인</dt><dd>판정이 땅에만 있어 점프하면 안 먹힘 · 닿는 순간 한 번만 확인 · 꽉 찬 바주카를 뽑아 상자만 사라짐, 세 가지였어요.</dd>
+      <dt>판단</dt><dd>상자 높이에 판정을 더하고, 안에 사람이 있는 <i>동안만</i> 0.25초마다 다시 확인. 받을 수 없는 아이템은 처음부터 안 뽑아요.</dd>
+      <dt>결과</dt><dd>손님 반복 줍기 시험 <b>6/24 → 24/24</b>.</dd></dl></article>
+    <article class="case"><span class="tag">성능</span><h3>방장 CPU를 잡아먹던 복제 검사</h3><dl>
+      <dt>먼저</dt><dd>그래픽 없이 방장+손님을 띄워 복제 비용을 재는 측정기(netperf)를 만들었어요.</dd>
+      <dt>원인</dt><dd>거의 안 바뀌는 액터들이 엔진 기본(초당 100번)으로 검사받고 있었어요. 장터 통·건초 35개만 초당 1,298번.</dd>
+      <dt>판단</dt><dd>손님당 약 19KB/s라 대역폭이 아니라 방장 CPU가 문제라고 정리. 바뀔 때만 바로 보내고 평소 빈도는 낮췄어요.</dd>
+      <dt>결과</dt><dd>프레임당 액터 복제 처리 <b>47.3 → 14.7 (-69%)</b>.</dd></dl></article>
+    <article class="case"><span class="tag">메모리</span><h3>판을 거듭할수록 늘어나는 메모리</h3><dl>
+      <dt>발견</dt><dd>화면 없이 200판을 반복하는 시험에서 판마다 3.3MB씩 직선으로 늘었어요.</dd>
+      <dt>원인</dt><dd>추적 도구를 만들어 보니 엔진 UWidgetComponent가 글 판의 가상 창을 목록에서 안 빼서, 판마다 47개가 남았어요.</dd>
+      <dt>판단</dt><dd>엔진 소스 대신 상속 컴포넌트에서 먼저 빼게 하고 6곳을 바꿨어요.</dd>
+      <dt>결과</dt><dd>판당 <b>3.3MB → 2.0MB</b>. 판 40번 도는 누수 시험을 넣어 재발을 감시해요.</dd></dl></article>
+    <article class="case"><span class="tag">성능</span><h3>매 프레임 돌던 [F] 안내 고르기</h3><dl>
+      <dt>원인</dt><dd>고른 물건이 없을 때마다 매 프레임 액터 종류 20개를 훑어 다시 골랐어요.</dd>
+      <dt>결과</dt><dd>0.1초 간격으로 바꿔 프레임당 <b>2.5ms</b> 절약. 마을4 평균 <b>47.6 → 약 65fps</b>(에디터, RTX 5060 Ti).</dd></dl></article>
+  </div>
+</div></section>
+
+<!-- 05 다른 작업: 짧게 -->
 <section class="works" id="works"><div class="wrap">
-  <span class="kicker">04 · 다른 작업</span>
+  <span class="kicker">05 · 다른 작업</span>
   <h2>그 전에 만든 것들</h2>
   <p class="lead">다 만들고 다시 해 보면서, 아쉬운 점도 같이 적었어요.</p>
   <div class="wlist">
