@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사운드 들어보기 · 우현제</title>
+<meta name="description" content="우현제 사운드 포트폴리오: 직접 만든 배경음악 모음, AION2 트레일러 리스코어, 언리얼 5 게임 안 소리 시연">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{--plum:#3b2463;--violet:#6a4aa5;--rose:#e9768d;--cream:#fff8ef;--ink:#2b2230;--muted:#5f5566;--line:#eadfd2;--cocoa:#5a3424}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;line-height:1.75;font-size:17px;word-break:keep-all}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  header{background:var(--plum);color:#fff;padding:16px 0 14px}
+  header a.back{color:#d9cdf5;text-decoration:none;font-size:15px}
+  h1{font-size:26px;margin:4px 0 2px;letter-spacing:-.02em}
+  header p{margin:0;color:#e4dcf5}
+  section{padding:22px 0 8px;border-bottom:1px solid var(--line)}
+  h2{font-size:23px;margin:0 0 4px;color:var(--plum)}
+  .meta{color:var(--muted);font-size:15px;margin:0 0 14px}
+  audio{width:100%;margin:6px 0 10px}
+  video{width:100%;border-radius:10px;background:#000;display:block}
+  .yt{position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000}
+  .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  ol,ul{margin:6px 0 14px;padding-left:22px}
+  li{margin:2px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .cap{font-size:14px;color:var(--muted);margin:6px 0 0}
+  .note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:12px 0}
+  footer{padding:28px 0 48px;color:var(--muted);font-size:15px}
+  footer a{color:var(--violet)}
+  @media (max-width:720px){.grid{grid-template-columns:1fr}h1{font-size:27px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="back" href="./">← 포트폴리오 첫 화면</a>
+  <h1>사운드 들어보기</h1>
+  <p>우현제 · 작곡·편곡·믹싱 약 10년 · 언리얼 5 메타사운드 / Wwise</p>
+</div></header>
+
+<main class="wrap">
+<p class="meta" style="margin:14px 0 0">▶ 누르면 바로 소리가 나옵니다. 위에서부터 게임 안 효과음 → 직접 만든 배경음악 → 트레일러 리스코어 순서입니다.</p>
+<section>
+  <h2>1. 게임 안 소리 — 밤톨 술래잡기 (언리얼 5, 1인 개발)</h2>
+  <p class="meta">사운드 기획·제작·적용·검수를 모두 맡은 게임의 실제 플레이 화면입니다. 소리를 켜고 보세요.</p>
+  <div class="grid">
+    <div>
+      <video controls playsinline preload="metadata" poster="img/chase_demo_1_poster.jpg" src="img/chase_demo_combined.mp4"></video>
+      <p class="cap">술래잡기 플레이 (55초)</p>
+    </div>
+    <div>
+      <video controls playsinline preload="none" poster="img/jump_forest_demo_poster.jpg" src="img/jump_forest_demo.mp4"></video>
+      <p class="cap">점프 숲 플레이 (23초)</p>
+    </div>
+  </div>
+  <ul>
+    <li>모든 소리를 이벤트 표 한 장으로 관리: 자막·겹 수·동시 재생 한도·덕킹·볼륨/음높이 흔들기·위치</li>
+    <li>거리 감쇠와 가려짐: 멀면 작고 먹먹하게. 술래잡기에서는 소리 위치가 곧 정보</li>
+    <li>지역 환경음 10종, 캐릭터 목소리, 소리 자막(방향 화살표)</li>
+    <li>마을 환경음의 지글거리는 잡음을 추적해 나뭇잎 노이즈 소스가 원인임을 찾아 수정</li>
+  </ul>
+  <p class="note">효과음은 스크립트 합성과 Fab 무료 팩 녹음을 가공해 메타사운드로 적용했습니다. 폴리를 직접 녹음한 작업은 아닙니다.</p>
+</section>
+
+<section>
+  <h2>2. 배경음악 모음 (2분 11초)</h2>
+  <p class="meta">직접 만든 곡 7개를 20초씩 이었습니다 · 스튜디오원 · -14 LUFS로 맞춤</p>
+  <audio controls preload="metadata" src="reel/woohyunje_bgm_reel.mp3"></audio>
+  <ol>
+    <li>ToonTumble — 브라스, 코미디 (CatLoopDefense 게임 음악으로 Wwise에 연결해 사용)</li>
+    <li>Japanese Shrine — 뉴에이지, 피아노</li>
+    <li>Small Jumping — 브라스 앙상블</li>
+    <li>Startouch — EDM</li>
+    <li>Daily Conversation — 피아노, 게임 일상</li>
+    <li>Somebody Help Me — 긴장감</li>
+    <li>Sleep Star — 피아노 발라드</li>
+  </ol>
+</section>
+
+<section>
+  <h2>3. AION2 트레일러 리스코어</h2>
+  <p class="meta">지스타 2025 「아이온2」 트레일러에 음악을 새로 붙인 개인 연습작 · 작곡·편곡·믹싱·마스터링 (48kHz / 24bit)</p>
+  <div class="yt"><iframe src="https://www.youtube.com/embed/pjb24k4RByQ" title="AION2 트레일러 리스코어" loading="lazy" allowfullscreen></iframe></div>
+  <p class="cap">유튜브에서 보기: <a href="https://youtu.be/pjb24k4RByQ">youtu.be/pjb24k4RByQ</a></p>
+</section>
+
+<section>
+  <h2>4. 미들웨어 작업</h2>
+  <ul>
+    <li><b>ProjectPG (3인 팀)</b> — Wwise 이벤트 17개, 사운드뱅크 5개, 발사 몽타주 10개에 AkEvent 노티파이. 시연 직전 같은 연결표로 메타사운드로 옮김</li>
+    <li><b>CatLoopDefense (4인 협동)</b> — C++ 음악 상태 장치로 탐색·전투·보스에 따라 Wwise State 전환</li>
+    <li><b>밤톨 술래잡기 사본</b> — WAAPI 도구로 가져오기·이벤트·사운드뱅크 생성, 게임 안 재생까지 확인</li>
+  </ul>
+</section>
+</main>
+<footer><div class="wrap">
+  dnguswp12345@gmail.com · <a href="./">포트폴리오 첫 화면</a>
+</div></footer>
+</body>
+</html>
