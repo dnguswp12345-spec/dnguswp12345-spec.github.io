@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 업무 자동화 사례 · 우현제</title>
+<meta name="description" content="우현제 AI 업무 자동화 사례: 로컬 AI로 고객 문의 분류·요약(정확도 94%), AI 일꾼 20개를 사고 없이 운영한 통제·검증 체계">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{--plum:#3b2463;--violet:#6a4aa5;--rose:#e9768d;--cream:#fff8ef;--ink:#2b2230;--muted:#5f5566;--line:#eadfd2;--card:#fffdf9}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;line-height:1.75;font-size:17px;word-break:keep-all}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  header{background:var(--plum);color:#fff;padding:16px 0 14px}
+  header a.back{color:#d9cdf5;text-decoration:none;font-size:15px}
+  h1{font-size:26px;margin:4px 0 2px;letter-spacing:-.02em}
+  header p{margin:0;color:#e4dcf5}
+  section{padding:26px 0 14px;border-bottom:1px solid var(--line)}
+  h2{font-size:23px;margin:0 0 4px;color:var(--plum)}
+  h3{font-size:18px;margin:22px 0 6px;color:var(--ink)}
+  .meta{color:var(--muted);font-size:15px;margin:0 0 14px}
+  ol,ul{margin:6px 0 14px;padding-left:22px}
+  li{margin:3px 0}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0 6px}
+  .num{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .num b{display:block;font-size:26px;color:var(--plum);line-height:1.2;font-variant-numeric:tabular-nums}
+  .num span{font-size:14px;color:var(--muted)}
+  .tablebox{overflow-x:auto;margin:10px 0 6px}
+  table{border-collapse:collapse;width:100%;min-width:520px;font-size:16px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  th{background:#f3ebdf;font-weight:700}
+  td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr.best td{font-weight:700;background:#f4eefc}
+  .bars{margin:14px 0 8px}
+  .bar{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;margin:6px 0;font-size:15px}
+  .bar i{display:block;height:16px;border-radius:4px;background:var(--violet)}
+  .bar.rule i{background:#b9a9a0}
+  .bar em{font-style:normal;font-variant-numeric:tabular-nums;color:var(--muted)}
+  pre{background:#2b2230;color:#f3ecff;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.6;margin:10px 0}
+  .note{font-size:15px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:12px 0}
+  footer{padding:28px 0 48px;color:var(--muted);font-size:15px}
+  footer a{color:var(--violet)}
+  @media (max-width:720px){.nums{grid-template-columns:1fr 1fr}.bar{grid-template-columns:110px 1fr 48px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="back" href="./">← 포트폴리오 첫 화면</a>
+  <h1>AI 업무 자동화 사례</h1>
+  <p>우현제 · 반복되는 일을 줄이고, 결과는 숫자로 확인합니다</p>
+</div></header>
+
+<main class="wrap">
+<p class="meta" style="margin:14px 0 0">사례 두 개입니다. 하나는 AI를 업무에 붙여 정확도를 재고 고친 기록이고, 하나는 AI에게 맡긴 일을 통제하고 검증한 기록입니다.</p>
+
+<section>
+  <h2>1. 고객 문의 자동 분류·요약</h2>
+  <p class="meta">보안업체 고객센터 문의를 읽고 분류·긴급 여부·한 줄 요약·다음 조치를 뽑는 도구 · Python, Ollama(llama3.1 8b)</p>
+  <p>고객센터에서 1년 일하며 "문의를 읽고 어디로 넘길지 정하는 일"이 계속 반복되는 것을 봤습니다. 그 일을 AI에게 맡기면 얼마나 맞히는지 직접 만들어 쟀습니다. 모델은 컴퓨터 안에서 돌아서 <b>문의 내용이 회사 밖으로 나가지 않고 건당 비용이 0원</b>입니다.</p>
+
+  <div class="nums">
+    <div class="num"><b>94%</b><span>분류 정확도 (처음 보는 문의 16건 중 15건)</span></div>
+    <div class="num"><b>31%</b><span>같은 문의에서 단어 규칙의 정확도</span></div>
+    <div class="num"><b>2.9초</b><span>문의 한 건 처리 시간</span></div>
+    <div class="num"><b>0건</b><span>응답 형식 오류 (64건 중)</span></div>
+  </div>
+
+  <h3>처음에는 AI가 단순한 단어 규칙을 못 이겼습니다</h3>
+  <p>정답을 달아 둔 문의 48건으로 쟀더니 AI와 단어 규칙이 똑같이 40건을 맞혔습니다. 틀린 것을 하나씩 보니 AI는 "기타"를 고르지 못하고 채용 문의를 "가입"으로, 광고 문자 거부를 "해지"로 밀어 넣고 있었습니다. 지시문을 두 번 고쳤습니다.</p>
+
+  <div class="tablebox"><table>
+    <tr><th>방법</th><th>처음 만든 문의 48건</th><th>처음 보는 문의 16건</th></tr>
+    <tr><td>단어 규칙 (AI 없음)</td><td class="n">40건 (83%)</td><td class="n">5건 (31%)</td></tr>
+    <tr><td>AI, 첫 지시문</td><td class="n">40건 (83%)</td><td class="n">재지 않음</td></tr>
+    <tr><td>AI, 두 번째 지시문: 분류 기준을 분명히</td><td class="n">41건 (85%)</td><td class="n">14건 (88%)</td></tr>
+    <tr class="best"><td>AI, 세 번째 지시문: "기타"의 예를 직접 적음</td><td class="n">45건 (94%)</td><td class="n">15건 (94%)</td></tr>
+  </table></div>
+
+  <h3>고친 지시문이 시험 문제에만 맞춰진 건 아닌지 확인했습니다</h3>
+  <p>지시문을 고치는 동안 보지 않은 문의 16건을 따로 만들어 쟀습니다. 여기서 차이가 갈렸습니다.</p>
+  <div class="bars" role="img" aria-label="처음 보는 문의 16건 정확도: 단어 규칙 31%, AI 94%">
+    <div class="bar rule"><span>단어 규칙</span><i style="width:31%"></i><em>31%</em></div>
+    <div class="bar"><span>AI (세 번째 지시문)</span><i style="width:94%"></i><em>94%</em></div>
+  </div>
+  <p>단어 규칙은 본 문장에만 통했고, AI는 처음 보는 표현에도 통했습니다. AI를 쓸 이유가 이 숫자입니다.</p>
+
+  <h3>아직 안 되는 것</h3>
+  <ul>
+    <li><b>긴급 문의 6건 중 2건을 놓칩니다.</b> "실수로 울린 경보이니 출동을 취소해 달라", "경비 설정을 했는지 확인해 달라" 두 건입니다. 실제 업무라면 긴급 판정은 사람이 한 번 더 봐야 합니다.</li>
+    <li><b>한 문의에 요청이 둘이면 틀립니다.</b> "요금이 비싸니 안 깎아 주면 해지하겠다" 같은 문의입니다. 분류를 하나만 고르게 한 설계의 한계입니다.</li>
+    <li><b>문의 64건은 실제 상담 기록이 아닙니다.</b> 고객 정보를 쓸 수 없어 지어낸 문장이고, 실제 기록으로 재면 숫자가 달라질 수 있습니다.</li>
+    <li>다른 모델 둘도 재 봤습니다. gemma2 9b는 더 느리고(5.8초) 덜 정확해서(48건 중 37건), exaone-deep 7.8b는 응답이 비거나 끝나지 않아 뺐습니다.</li>
+  </ul>
+
+  <h3>출력 예</h3>
+<pre>입력: 출입문 카드 리더기가 카드를 못 읽어서 직원들이 못 들어가고 있어요
+
+{
+  "category": "장애",
+  "urgent": true,
+  "summary": "출입문 카드 리더기가 작동하지 않아 직원들이 출입할 수 없게 되었습니다.",
+  "next_action": "카드 리더기 점검 및 교체"
+}</pre>
+  <p class="note">코드는 두 파일 207줄이고 추가 설치 없이 파이썬 기본 기능만 씁니다. 답의 틀을 강제해서 모델이 정해진 항목 밖의 글을 쓰지 못하게 했습니다.</p>
+</section>
+
+<section>
+  <h2>2. AI 일꾼 20개를 사고 없이 굴리기</h2>
+  <p class="meta">협동 멀티 게임(언리얼 5 C++)을 AI 코딩 일꾼 여러 개와 만들며 운영한 통제·검증 체계 · 2026-09-30 ~ 11-18</p>
+  <p>AI에게 일을 맡기면 세 가지 문제가 생겼습니다. AI가 남의 작업을 지우고, "됐다"는 보고를 믿을 수 없고, 여러 작업이 서로 막습니다. 회사에 AI를 들일 때 생기는 문제를 작은 규모로 먼저 겪고 장치로 풀었습니다.</p>
+
+  <div class="nums">
+    <div class="num"><b>787개</b><span>등록된 자동 시험</span></div>
+    <div class="num"><b>377 / 392</b><span>하루 실행에서 통과한 시험 (약 109분)</span></div>
+    <div class="num"><b>15가지</b><span>실행 전에 막는 위험 명령 규칙</span></div>
+    <div class="num"><b>2,949개</b><span>커밋 (7주)</span></div>
+  </div>
+
+  <h3>AI가 다른 작업을 지웠다 → 실행 전에 막는 장치</h3>
+  <p>한 일꾼이 쓴 명령 때문에 다른 일꾼의 작업이 사라졌고, 공용 문서가 통째로 비워진 적도 있습니다. "하지 마"라고 적어 두는 것으로는 다시 일어나서, 명령이 실행되기 전에 검사해 막는 장치를 넣었습니다.</p>
+  <ul>
+    <li>남의 작업을 지울 수 있는 명령, 공용 문서 통째 덮어쓰기, 비밀 키 읽기·출력을 막습니다.</li>
+    <li>막을 때 이유와 대신 할 방법을 같이 돌려줍니다. AI가 그걸 읽고 다른 길을 찾습니다.</li>
+    <li>규칙 하나하나가 실제로 난 사고에서 나왔습니다.</li>
+  </ul>
+
+  <h3>"됐다"는 보고를 믿을 수 없다 → 화면 없는 자동 시험</h3>
+  <p>게임을 화면 없이 띄워 시나리오를 돌리고, 로그에서 "나와야 하는 줄"과 "나오면 안 되는 줄"을 찾아 통과·실패를 가립니다. 11월 14일에는 392개를 약 109분에 돌려 377개가 통과했고, 실패 15개는 원인 줄과 함께 표로 남았습니다.</p>
+
+  <h3>일꾼들이 서로 막았다 → 줄 세우기와 감시</h3>
+  <ul>
+    <li><b>빌드 줄 도우미</b>: 앞사람 빌드에 내 변경이 이미 들어갔으면 다시 빌드하지 않고, 깨지면 오류 난 파일의 주인에게 알립니다.</li>
+    <li><b>GPU 차례 정하기</b>: 그래픽 메모리를 크게 쓰는 작업이 겹치지 않게 합니다.</li>
+    <li><b>병목 감시 5가지</b>: 빌드 70분 초과, 시험 하나가 50분 넘게 자리 차지, GPU 줄 15분 초과 대기 등이 생기면 알리고, 문제가 없으면 조용합니다.</li>
+  </ul>
+
+  <h3>내가 한 일</h3>
+  <p>코드는 대부분 AI 일꾼이 썼습니다. 제가 한 일은 무엇을 만들지 정하고, 사고가 날 때마다 원인을 묻고, 같은 사고가 다시 안 나게 규칙과 장치로 바꾸는 것이었습니다. "잘 됩니다"라는 보고는 숫자가 찍힌 시험 결과로만 확인했습니다.</p>
+
+  <div class="tablebox"><table>
+    <tr><th>여기서 한 것</th><th>회사에서의 같은 문제</th></tr>
+    <tr><td>위험 명령을 실행 전에 차단</td><td>AI가 고객 데이터를 지우거나 밖으로 보내는 것을 막기</td></tr>
+    <tr><td>화면 없는 자동 시험</td><td>AI가 만든 결과물을 사람이 다 보지 않고도 검증하기</td></tr>
+    <tr><td>줄 세우기·병목 감시</td><td>여러 자동화가 같은 자원을 두고 서로 막지 않게 하기</td></tr>
+  </table></div>
+  <p class="note">게임 자체는 <a href="./" style="color:var(--violet)">포트폴리오 첫 화면</a>에서 볼 수 있습니다.</p>
+</section>
+</main>
+<footer><div class="wrap">
+  dnguswp12345@gmail.com · <a href="./">포트폴리오 첫 화면</a>
+</div></footer>
+</body>
+</html>
